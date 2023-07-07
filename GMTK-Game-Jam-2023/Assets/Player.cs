@@ -12,6 +12,9 @@ public class Player : MovingObject
     private Vector2 movement;
     private float speedIncrement;
     private float accelerationStartTime;
+    private float accelerationStopTime;
+
+    private bool decrementingSpeed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +31,11 @@ public class Player : MovingObject
             accelerationStartTime = Time.fixedTime;
             speedIncrement = 0;
         }
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            decrementingSpeed = true;
+            accelerationStopTime = Time.fixedDeltaTime;
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -39,14 +47,18 @@ public class Player : MovingObject
         }
         else
         {
-            movement = Vector2.zero; // (0, 0)
-            return;
+            if (!decrementingSpeed)
+            {
+                movement = Vector2.zero; // (0, 0)
+                return;
+            }
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
             movement *= 2;
         }
+        
     }
 
     private void FixedUpdate()

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Usage { Walk, Jump, SpecialMovement}
+
+[CreateAssetMenu(fileName = "MovementPattern", menuName = "MovementPattern/Base")]
 public class MovementPattern : ScriptableObject
 {
     public Usage usage;
