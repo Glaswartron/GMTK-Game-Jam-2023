@@ -43,10 +43,13 @@ public class Enemy : MovingObject
         }
         else if (currentDirection == Direction.None)
         {
-            movement = Vector2.zero;
-            if (!startedMoving)
+            if (!decrementingSpeed)
             {
-                startedMoving = true;
+                movement = Vector2.zero;
+                if (!startedMoving)
+                {
+                    startedMoving = true;
+                }
             }
 
         }
@@ -57,7 +60,19 @@ public class Enemy : MovingObject
         float t = Time.fixedTime - accelerationStartTime;
         speedIncrement = SpeedFunction(t, accelerationTime);
 
-        transform.Translate(speed * movement * speedIncrement * Time.fixedDeltaTime);
+        float speedDecrement = 1f;
+        if(decrementingSpeed)
+        {
+            float s = Time.fixedTime - accelerationStopTime;
+            speedDecrement = 1 - SpeedFunction(s, accelerationTime / 2);
+
+            if(speedDecrement <= 0)
+            {
+                decrementingSpeed = false;
+            }
+        }
+
+        transform.Translate(speed * movement * speedIncrement * speedDecrement * Time.fixedDeltaTime);
     }
 
     private float SpeedFunction(float t, float accelerationTime)
@@ -70,7 +85,10 @@ public class Enemy : MovingObject
 
     public void ChangeDirection()
     {
-        if(currentDirection == Direction.Left)
+        decrementingSpeed = true;
+        accelerationStopTime = Time.fixedTime;
+
+        if (currentDirection == Direction.Left)
         {
             currentDirection = Direction.Right;
         }
@@ -82,6 +100,9 @@ public class Enemy : MovingObject
 
     public void StopMovement()
     {
+        decrementingSpeed = true;
+        accelerationStopTime = Time.fixedTime;
+
         currentDirection = Direction.None;
     }
 
