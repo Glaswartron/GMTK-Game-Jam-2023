@@ -10,8 +10,8 @@ public class Enemy : MovingObject
     private float accelerationStartTime;
     private float accelerationStopTime;
 
-
-    bool startedMoving = true;
+    private bool startedMoving = true;
+    private bool decrementingSpeed = false;
     // Start is called before the first frame update
     void Start()
     {
