@@ -11,6 +11,7 @@ public class Player : MovingObject
 
     private Vector2 movement;
     private float speedIncrement;
+    private float speedDecrement;
     private float accelerationStartTime;
     private float accelerationStopTime;
 
@@ -34,7 +35,7 @@ public class Player : MovingObject
         if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             decrementingSpeed = true;
-            accelerationStopTime = Time.fixedDeltaTime;
+            accelerationStopTime = Time.fixedTime;
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -65,8 +66,16 @@ public class Player : MovingObject
     {
         float t = Time.fixedTime - accelerationStartTime;
         speedIncrement = SpeedFunction(t, accelerationTime);
-
-        transform.Translate(movement * speed * speedIncrement * Time.fixedDeltaTime);
+        if (decrementingSpeed)
+        {
+            float s = Time.fixedTime - accelerationStopTime;
+            float speedDecrement = 1 - SpeedFunction(s, accelerationTime);
+            if(speedDecrement <= 0)
+            {
+                decrementingSpeed = false;
+            }
+        }
+        transform.Translate(movement * speed * speedDecrement * speedIncrement * Time.fixedDeltaTime);
     }
 
     private float SpeedFunction(float t, float accelerationTime)
