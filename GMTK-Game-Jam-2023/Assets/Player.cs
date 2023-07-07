@@ -65,12 +65,13 @@ public class Player : MovingObject
     private void FixedUpdate()
     {
         float t = Time.fixedTime - accelerationStartTime;
+        float speedDecrement = 1;
         speedIncrement = SpeedFunction(t, accelerationTime);
         if (decrementingSpeed)
         {
             float s = Time.fixedTime - accelerationStopTime;
-            float speedDecrement = 1 - SpeedFunction(s, accelerationTime);
-            if(speedDecrement <= 0)
+            speedDecrement = 1 - SpeedFunction(s, accelerationTime);
+            if(speedDecrement <= 0.5)
             {
                 decrementingSpeed = false;
             }
