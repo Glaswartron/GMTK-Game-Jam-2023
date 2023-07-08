@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class Player : MovingObject
 {
@@ -29,6 +30,7 @@ public class Player : MovingObject
     private float accelerationStopTime;
 
     private float jumpStartTime;
+    private float jumpBaseY;
 
     private bool decrementingSpeed = false;
 
@@ -72,11 +74,23 @@ public class Player : MovingObject
             {
                 jumping = true;
                 jumpStartTime = Time.fixedTime;
+                jumpBaseY = transform.position.y;
             }
         }
 
         if (jumping)
+        {
             playerRigidbody.gravityScale = 0;
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                movement += Vector2.left * Time.fixedDeltaTime;
+            } 
+            else if (Input.GetKey(KeyCode.D))
+            {
+                movement += Vector2.right * Time.fixedDeltaTime;
+            }
+        }
         else
             playerRigidbody.gravityScale = 1;
 
@@ -94,7 +108,7 @@ public class Player : MovingObject
             {
                 grounded = true;
 
-                if (jumping && Time.fixedTime - jumpStartTime > 0.5f)
+                if (jumping && Time.fixedTime - jumpStartTime > 0.2f)
                     jumping = false;
             }
             else
@@ -118,15 +132,21 @@ public class Player : MovingObject
                 decrementingSpeed = false;
         }
 
-        Vector2 actualMovement = movement * speed * speedDecrement * speedIncrement * Time.fixedDeltaTime;
-
         if (jumping)
         {
             jumpIncrement = jumpCurve.Evaluate(Time.fixedTime - jumpStartTime);
-            actualMovement += Vector2.up * jumpSpeed * jumpIncrement * Time.fixedDeltaTime;
+
+            if (jumpIncrement <= 0 && Time.fixedTime - jumpStartTime > 0.2f)
+            {
+                jumping = false;
+                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 2 * (Time.fixedTime - jumpStartTime));
+            }
+
+            transform.Translate(new Vector2(0, (jumpCurve.Evaluate(Time.fixedTime - jumpStartTime) - jumpCurve.Evaluate(Time.fixedTime - jumpStartTime - Time.fixedDeltaTime)) / Time.fixedDeltaTime) * Time.fixedDeltaTime);
+            //actualMovement += Vector2.up * jumpSpeed * jumpIncrement * Time.fixedDeltaTime;
         }
 
-        transform.Translate(actualMovement);
+        transform.Translate(movement * speed * speedDecrement * speedIncrement * Time.fixedDeltaTime);
     }
 
     private float SpeedFunction(float t, float accelerationTime)
