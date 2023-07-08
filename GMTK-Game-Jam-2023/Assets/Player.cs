@@ -9,6 +9,8 @@ public class Player : MovingObject
     public int health;
     public float jumpSpeed = 3f;
     public float midAirControl = 1f;
+    public float inincibilityTime;
+    private bool invictus;
 
     public Stats stats;
 
@@ -147,10 +149,25 @@ public class Player : MovingObject
 
     public void TakeHit()
     {
-        if(stats.ReduceHP()) //-> Spieler hat keine HP mehr
+        if (!invictus)
         {
-            //GameOver oder so
+            if (stats.ReduceHP()) //-> Spieler hat keine HP mehr
+            {
+                //GameOver oder so
+            }
+            else
+            {
+                //set invincibility
+                invictus = true;
+                StartCoroutine(InvinctusCountdown());
+            }
         }
+    }
+
+    private IEnumerator InvinctusCountdown()
+    {
+        yield return new WaitForSeconds(inincibilityTime);
+        invictus = false;
     }
 
     public class Stats
