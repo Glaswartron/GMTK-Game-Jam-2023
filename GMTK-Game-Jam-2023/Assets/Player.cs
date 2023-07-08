@@ -49,6 +49,14 @@ public class Player : MovingObject
             {
                 accelerationStartTime = Time.fixedTime;
                 speedIncrement = 0;
+                if(Input.GetKeyDown(KeyCode.A))
+                {
+                    GetComponent<SpriteRenderer>().flipX = false;
+                }
+                else
+                {
+                    GetComponent<SpriteRenderer>().flipX = true;
+                }
             }
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
             {
