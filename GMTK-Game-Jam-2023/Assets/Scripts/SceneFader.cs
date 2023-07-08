@@ -31,13 +31,6 @@ public class SceneFader : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SwitchToScene("StartScene", 3);
-        }
-#endif
-
         if (fadingOut)
         {
             Color col = panel.color;

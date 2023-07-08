@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BeneScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: a97c09add8c529643b7aaced0a2864c9
+  - enabled: 1
+    path: Assets/Scenes/BeneSceneNew.unity
+    guid: 42fd79a7d2645974f862d26e0b0cc717
   m_configObjects: {}
