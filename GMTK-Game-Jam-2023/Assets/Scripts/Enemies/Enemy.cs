@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MovingObject
 {
+    public int HP = 1;
+
     protected Vector2 movement;
     protected float speedIncrement;
     protected Vector2 decrement;
@@ -125,5 +127,27 @@ public class Enemy : MovingObject
     {
         RaycastHit2D hit = Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, ~LayerMask.NameToLayer("Ground and Platforms"));
         return hit.collider != null;
+    }
+
+    public void TakeHit(int dmg = 1)
+    {
+        Debug.Log("Hi, TakeHit hier");
+        HP -= dmg;
+        if(HP <= 0)
+        {
+            movement = Vector2.zero;
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+            //PlayDeathAnimation;
+            //Wait for Animation Done
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            DamageBehaviour();
+        }
+    }
+    protected virtual void DamageBehaviour()
+    {
+        //Muss überschrieben werden
     }
 }

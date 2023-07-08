@@ -23,7 +23,7 @@ public class DirectionJumpingEnemy : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         BaseEnemyUpdate(); //in Enemy
 
