@@ -1101,8 +1101,8 @@ MonoBehaviour:
   currentDirection: 1
   walkPattern: {fileID: 11400000, guid: 7df9c5c493d5b9247aec6635e13de7e1, type: 2}
   jumpingPower: 9
-  jumpAlways: 1
-  jumpRate: 0
+  jumpAlways: 0
+  jumpRate: 2
 --- !u!212 &648126783
 SpriteRenderer:
   m_ObjectHideFlags: 0
