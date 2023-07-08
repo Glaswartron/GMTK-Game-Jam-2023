@@ -137,6 +137,14 @@ public class Player : MovingObject
         return walkPattern.CalculateMovement(t) / walkPattern.CalculateMovement(accelerationTime);
     }
 
+    public void TakeHit()
+    {
+        if(stats.ReduceHP()) //-> Spieler hat keine HP mehr
+        {
+            //GameOver oder so
+        }
+    }
+
     public class Stats
     {
         private int speed;

@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class Enemy : MovingObject
 {
-    private Vector2 movement;
-    private float speedIncrement;
-    private Vector2 decrement;
-    private float accelerationStartTime;
-    private float accelerationStopTime;
+    protected Vector2 movement;
+    protected float speedIncrement;
+    protected Vector2 decrement;
+    protected float accelerationStartTime;
+    protected float accelerationStopTime;
 
-    private bool startedMoving = true;
-    private bool decrementingSpeed = false;
+    protected bool startedMoving = true;
+    protected bool decrementingSpeed = false;
+
+    protected Rigidbody2D enemyRigidBody;
+    protected Collider2D enemyCollider;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         movement = Vector2.zero;
+        enemyRigidBody = GetComponent<Rigidbody2D>();
+        enemyCollider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+        BaseEnemyUpdate();
+    }
+
+    protected void BaseEnemyUpdate()
     {
         if (currentDirection == Direction.Right)
         {
@@ -55,7 +65,7 @@ public class Enemy : MovingObject
         }
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         float t = Time.fixedTime - accelerationStartTime;
         speedIncrement = SpeedFunction(t, accelerationTime);
@@ -109,5 +119,11 @@ public class Enemy : MovingObject
     public void StartMovement()
     {
         currentDirection = Direction.Left;
+    }
+
+    public bool IsGrounded()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, ~LayerMask.NameToLayer("Ground and Platforms"));
+        return hit.collider != null;
     }
 }

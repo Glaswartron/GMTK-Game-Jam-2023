@@ -12,5 +12,9 @@ public class EnemySideCollider : MonoBehaviour
         {
             GetComponentInParent<Enemy>().ChangeDirection();
         }
+        else if(collision.GetComponent<Player>() != null)
+        {
+            collision.GetComponent<Player>().TakeHit(); //ToDO Implement TakeHit() in Player.cs
+        }
     }
 }
