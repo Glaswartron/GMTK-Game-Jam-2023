@@ -142,7 +142,7 @@ public class Player : MovingObject
         if (t >= accelerationTime)
             return 1f;
 
-        return walkPattern.CalculateMovement(t) / walkPattern.CalculateMovement(accelerationTime);
+        return Mathf.Pow(t, 2) / Mathf.Pow(accelerationTime, 2);
     }
 
     public void TakeHit()
