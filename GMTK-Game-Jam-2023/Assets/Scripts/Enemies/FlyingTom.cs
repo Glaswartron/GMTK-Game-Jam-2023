@@ -20,8 +20,9 @@ public class FlyingTom : DirectionJumpingEnemy
     protected override void DamageBehaviour()
     {
         Debug.Log("Hi hi");
-        GameObject nft = Instantiate<GameObject>(notFlyingTom, this.transform); //Echte NFTS! Echte NFTS! 
+        GameObject nft = Instantiate<GameObject>(notFlyingTom, transform.position, transform.rotation, transform); //Echte NFTS! Echte NFTS! 
         nft.transform.parent = null;
-        Destroy(this.gameObject);
+        nft.GetComponent<Enemy>().SelfInvic(2f);
+        gameObject.SetActive(false);
     }
 }

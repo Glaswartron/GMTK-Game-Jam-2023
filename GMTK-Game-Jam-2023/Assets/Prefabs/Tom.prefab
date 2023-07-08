@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2586028242031707701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.062, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 5968786675843263151}
   - component: {fileID: 2936048722557394089}
   m_Layer: 0
-  m_Name: EnemyXD
+  m_Name: Tom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,7 +127,7 @@ Transform:
   - {fileID: 6078806439938214678}
   - {fileID: 8821523823583742865}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4260585066085232872
 SpriteRenderer:
@@ -175,7 +175,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -240,9 +240,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.028246403, y: 0}
+  m_Offset: {x: -0.029493809, y: -0.15968454}
   serializedVersion: 2
-  m_Radius: 0.4717536
+  m_Radius: 0.41810942
 --- !u!114 &5968786675843263151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +260,8 @@ MonoBehaviour:
   currentDirection: 1
   walkPattern: {fileID: 11400000, guid: 7df9c5c493d5b9247aec6635e13de7e1, type: 2}
   HP: 1
+  invincibilityTime: 0.2
+  doesDamage: 1
 --- !u!95 &2936048722557394089
 Animator:
   serializedVersion: 5

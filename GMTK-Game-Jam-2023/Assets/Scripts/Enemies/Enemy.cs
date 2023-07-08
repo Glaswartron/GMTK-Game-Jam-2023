@@ -17,6 +17,11 @@ public class Enemy : MovingObject
 
     protected Rigidbody2D enemyRigidBody;
     protected Collider2D enemyCollider;
+
+    public float invincibilityTime = .2f;
+    private bool invictus;
+
+    public bool doesDamage = true;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -131,23 +136,47 @@ public class Enemy : MovingObject
 
     public void TakeHit(int dmg = 1)
     {
-        Debug.Log("Hi, TakeHit hier");
-        HP -= dmg;
-        if(HP <= 0)
+        if (!invictus)
         {
-            movement = Vector2.zero;
-            GetComponent<Rigidbody2D>().gravityScale = 0;
-            //PlayDeathAnimation;
-            //Wait for Animation Done
-            Destroy(this.gameObject);
+            Debug.Log("Hi, TakeHit hier");
+            HP -= dmg;
+            if (HP <= 0)
+            {
+                movement = Vector2.zero;
+                GetComponent<Rigidbody2D>().gravityScale = 0;
+
+                doesDamage = false;
+                GetComponent<Animator>().Play("Die"); //Dort muss das GO ausgemacht werden
+                //PlayDeathAnimation;
+                //Wait for Animation Done
+                //gameObject.SetActive(false);
+            }
+            else
+            {
+                StartCoroutine(InvinctusCountdown(invincibilityTime));
+                DamageBehaviour();
+            }
         }
-        else
-        {
-            DamageBehaviour();
-        }
+    }
+
+    private IEnumerator InvinctusCountdown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        invictus = false;
+    }
+
+    public void SelfInvic(float time)
+    {
+        invictus = true;
+        StartCoroutine(InvinctusCountdown(time));
     }
     protected virtual void DamageBehaviour()
     {
         //Muss überschrieben werden
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }
