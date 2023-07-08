@@ -214,6 +214,11 @@ public class Player : MovingObject
         invictus = false;
     }
 
+    public Vector2 GetCurrentVelo()
+    {
+        return playerRigidbody.velocity;
+    }
+
     public class Stats
     {
         private float speed;
