@@ -6,10 +6,13 @@ public class EnemyHeadCollider : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<Player>() != null)
+        Player player = collision.GetComponent<Player>();
+        if (player != null)
         {
             Debug.Log("WAAAAAAA");
             GetComponentInParent<Enemy>().TakeHit();
+
+            player.BoostUp();
         }
     }
 

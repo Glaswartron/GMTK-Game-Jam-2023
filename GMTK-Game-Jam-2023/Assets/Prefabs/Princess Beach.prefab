@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8096544777019925532}
   - component: {fileID: 4580468134601524990}
+  - component: {fileID: 4236260698414228036}
   - component: {fileID: 8559824576324329087}
   - component: {fileID: 4245643662181464012}
-  - component: {fileID: 4236260698414228036}
   - component: {fileID: 1876416359368123034}
   m_Layer: 0
   m_Name: Princess Beach
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 7835995153145755176}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4580468134601524990
 SpriteRenderer:
@@ -89,6 +89,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4236260698414228036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3617030094766858175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460e6074e790a3746a7cc7890d24fdec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  accelerationTime: 0.3
+  currentDirection: 0
+  walkPattern: {fileID: 0}
+  health: 0
+  jumpSpeed: 13
+  midAirControl: 0.72
+  inincibilityTime: 0
+  enemyBoost: 10
 --- !u!50 &8559824576324329087
 Rigidbody2D:
   serializedVersion: 4
@@ -104,7 +125,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.2
+  m_GravityScale: 2.4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -148,7 +169,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.040023804, y: -0.07337707}
+  m_Offset: {x: -0.040023804, y: -0.055881202}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -159,28 +180,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7459197, y: 1.2395474}
+  m_Size: {x: 0.7459197, y: 1.2045556}
   m_EdgeRadius: 0
---- !u!114 &4236260698414228036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3617030094766858175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460e6074e790a3746a7cc7890d24fdec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 4
-  accelerationTime: 0.3
-  currentDirection: 0
-  walkPattern: {fileID: 0}
-  health: 0
-  jumpSpeed: 13
-  midAirControl: 0.5
-  inincibilityTime: 0
 --- !u!95 &1876416359368123034
 Animator:
   serializedVersion: 5
@@ -263,7 +264,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.019596428, y: 0.42852145}

@@ -10,6 +10,7 @@ public class Player : MovingObject
     public float jumpSpeed = 3f;
     public float midAirControl = 1f;
     public float inincibilityTime;
+    public float enemyBoost = 2f;
     private bool invictus;
 
     bool jumping;
@@ -125,6 +126,11 @@ public class Player : MovingObject
         // Ground check using boxcast below player collider
         RaycastHit2D hit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, ~LayerMask.NameToLayer("Ground and Platforms"));
         return hit.collider != null;
+    }
+
+    public void BoostUp()
+    {
+        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, enemyBoost);
     }
 
     private void DetermineSpeedRampUpAndDown()
