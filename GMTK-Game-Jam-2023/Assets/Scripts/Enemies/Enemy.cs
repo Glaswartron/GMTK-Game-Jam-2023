@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MovingObject
 {
+    public int HP = 1;
+
     protected Vector2 movement;
     protected float speedIncrement;
     protected Vector2 decrement;
@@ -15,6 +17,11 @@ public class Enemy : MovingObject
 
     protected Rigidbody2D enemyRigidBody;
     protected Collider2D enemyCollider;
+
+    public float invincibilityTime = .2f;
+    private bool invictus;
+
+    public bool doesDamage = true;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -125,5 +132,51 @@ public class Enemy : MovingObject
     {
         RaycastHit2D hit = Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, ~LayerMask.NameToLayer("Ground and Platforms"));
         return hit.collider != null;
+    }
+
+    public void TakeHit(int dmg = 1)
+    {
+        if (!invictus)
+        {
+            Debug.Log("Hi, TakeHit hier");
+            HP -= dmg;
+            if (HP <= 0)
+            {
+                movement = Vector2.zero;
+                GetComponent<Rigidbody2D>().gravityScale = 0;
+
+                doesDamage = false;
+                GetComponent<Animator>().Play("Die"); //Dort muss das GO ausgemacht werden
+                //PlayDeathAnimation;
+                //Wait for Animation Done
+                //gameObject.SetActive(false);
+            }
+            else
+            {
+                StartCoroutine(InvinctusCountdown(invincibilityTime));
+                DamageBehaviour();
+            }
+        }
+    }
+
+    private IEnumerator InvinctusCountdown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        invictus = false;
+    }
+
+    public void SelfInvic(float time)
+    {
+        invictus = true;
+        StartCoroutine(InvinctusCountdown(time));
+    }
+    protected virtual void DamageBehaviour()
+    {
+        //Muss überschrieben werden
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 }
