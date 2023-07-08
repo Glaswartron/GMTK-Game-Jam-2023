@@ -13,7 +13,10 @@ public class Player : MovingObject
     public float enemyBoost = 2f;
     private bool invictus;
 
-    bool jumping;
+    private bool jumping;
+
+    private bool doubleJumpEnabled;
+    private bool secondJumpUsed;
 
     public Stats stats;
 
@@ -60,22 +63,42 @@ public class Player : MovingObject
             // Reset jumping stuff once grounded after jump (= jump ended)
             if (jumping)
                 jumping = false;
-                
+
             playerAnimator.SetBool("jumping", false);
             playerAnimator.SetBool("grounded", true);
 
             DetermineSpeedRampUpAndDown();
-            
+
             // Jump when space is pressed
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                playerRigidbody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                //playerRigidbody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                playerRigidbody.velocity = Vector2.up * jumpSpeed;
                 playerAnimator.SetBool("jumping", true);
+                secondJumpUsed = false;
                 jumping = true;
             }
         }
         else
+        {
             playerAnimator.SetBool("grounded", false);
+
+            // Long and short jumps
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                playerRigidbody.velocity = playerRigidbody.velocity *= 0.5f;
+            }
+
+            // Double jump
+            if (doubleJumpEnabled)
+            {
+                if (Input.GetKeyDown(KeyCode.Space) && !secondJumpUsed)
+                {
+                    playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpSpeed);
+                    secondJumpUsed = true;
+                }
+            }
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -141,6 +164,39 @@ public class Player : MovingObject
     public void BoostUp()
     {
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, enemyBoost);
+    }
+
+    public void SpeedUp(float multiplier, float time)
+    {
+        speed = speed * multiplier;
+
+        playerSpriteRenderer.color = new Color(255, 120, 0);
+
+        Invoke("ResetSpeed", time);
+    }
+
+    public void ResetSpeed()
+    {
+        speed = stats.GetSpeed();
+
+        playerSpriteRenderer.color = new Color(255, 255, 255);
+    }
+
+    public void EnableDoubleJump(float time)
+    {
+        doubleJumpEnabled = true;
+
+        playerSpriteRenderer.color = Color.green;
+
+        Invoke("DisableDoubleJump", time);
+    }
+
+    public void DisableDoubleJump()
+    {
+        doubleJumpEnabled = false;
+        secondJumpUsed = false;
+
+        playerSpriteRenderer.color = new Color(255, 255, 255);
     }
 
     private void DetermineSpeedRampUpAndDown()
