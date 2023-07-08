@@ -5,7 +5,7 @@ using UnityEngine;
 public enum Direction { Left, Right, None}
 public class MovingObject : MonoBehaviour
 {
-    public int speed;
+    public float speed;
     public float accelerationTime = 0.5f;
     public Direction currentDirection;
     public MovementPattern walkPattern;

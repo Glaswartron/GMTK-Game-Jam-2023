@@ -186,12 +186,12 @@ public class Player : MovingObject
 
     public class Stats
     {
-        private int speed;
+        private float speed;
         /*private MovementPattern walkPattern;
         private MovementPattern jumpPattern;*/
         private int health;
 
-        public Stats(int speed, /*MovementPattern walkPattern, MovementPattern jumpPattern,*/ int health)
+        public Stats(float speed, /*MovementPattern walkPattern, MovementPattern jumpPattern,*/ int health)
         {
             this.speed = speed;
             /*this.walkPattern = walkPattern;
@@ -203,7 +203,7 @@ public class Player : MovingObject
         {
             this.speed = speed;
         }
-        public int GetSpeed()
+        public float GetSpeed()
         {
             return speed;
         }

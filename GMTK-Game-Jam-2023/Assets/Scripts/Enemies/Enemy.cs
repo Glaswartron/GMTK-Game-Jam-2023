@@ -19,7 +19,7 @@ public class Enemy : MovingObject
     protected Collider2D enemyCollider;
 
     public float invincibilityTime = .2f;
-    private bool invictus;
+    protected bool invictus;
 
     public bool doesDamage = true;
     // Start is called before the first frame update
@@ -100,7 +100,7 @@ public class Enemy : MovingObject
         return Mathf.Pow(t,2) / Mathf.Pow(accelerationTime, 2);
     }
 
-    public void ChangeDirection()
+    public virtual void ChangeDirection()
     {
         decrementingSpeed = true;
         accelerationStopTime = Time.fixedTime;
