@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class DamageBox : MonoBehaviour
 {
+    public bool instakill;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<Player>() != null)
         {
-            collision.GetComponent<Player>().TakeHit();
+            var p = collision.GetComponent<Player>();
+            p.TakeHit();
+            if (instakill)
+            {
+                for (int i = 0; i < p.health; i++)
+                {
+                    p.TakeHit(true);
+                }
+            }
         }
     }
 

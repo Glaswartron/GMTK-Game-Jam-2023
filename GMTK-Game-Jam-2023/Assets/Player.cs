@@ -31,6 +31,7 @@ public class Player : MovingObject
     private bool decrementingSpeed = false;
 
     private bool blockMovement = false;
+    private bool dead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -176,15 +177,21 @@ public class Player : MovingObject
         return Mathf.Pow(t, 2) / Mathf.Pow(accelerationTime, 2);
     }
 
-    public void TakeHit()
+    public void TakeHit(bool skipInvinc = false)
     {
-        if (!invictus)
+        if(dead)
+        {
+            return;
+        }
+
+        if (!invictus || skipInvinc)
         {
             if (stats.ReduceHP()) //-> Spieler hat keine HP mehr
             {
                 UIMaster.instance.LoseHeart(2);
                 blockMovement = true;
                 GameManager.instance.GameOver();
+                dead = true;
             }
             else
             {
