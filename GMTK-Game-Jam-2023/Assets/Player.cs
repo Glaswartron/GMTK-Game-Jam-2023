@@ -12,23 +12,20 @@ public class Player : MovingObject
     public float inincibilityTime;
     private bool invictus;
 
+    bool jumping;
+
     public Stats stats;
 
     private Rigidbody2D playerRigidbody;
     private Collider2D playerCollider;
-
-    private Vector2 movement;
-
-    private bool jumping;
-    private bool grounded = true;
+    private Animator playerAnimator;
+    private SpriteRenderer playerSpriteRenderer;
 
     private float speedIncrement;
     private float speedDecrement;
 
     private float accelerationStartTime;
     private float decelerationStartTime;
-
-    private float jumpStartTime;
 
     private bool decrementingSpeed = false;
 
@@ -37,94 +34,84 @@ public class Player : MovingObject
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+        playerAnimator = GetComponent<Animator>();
+        playerSpriteRenderer = GetComponent<SpriteRenderer>();
 
-        movement = Vector2.zero; // (0, 0)
+        playerRigidbody.velocity = Vector2.zero; // (0, 0)
         stats = new Stats(speed, /*walkPattern, jumpPattern,*/ health);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!jumping)
+        if (IsGrounded())
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
-            {
-                accelerationStartTime = Time.fixedTime;
-                speedIncrement = 0;
-                if(Input.GetKeyDown(KeyCode.A))
-                {
-                    GetComponent<SpriteRenderer>().flipX = false;
-                }
-                else
-                {
-                    GetComponent<SpriteRenderer>().flipX = true;
-                }
-            }
-            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-            {
-                decrementingSpeed = true;
-                decelerationStartTime = Time.fixedTime;
-            }
+            // Reset jumping stuff once grounded after jump (= jump ended)
+            if (jumping)
+                jumping = false;
+                
+            playerAnimator.SetBool("jumping", false);
+            playerAnimator.SetBool("grounded", true);
 
-            float t = Time.fixedTime - accelerationStartTime;
-            speedIncrement = SpeedFunction(t, accelerationTime);
-            speedDecrement = 1;
-            if (decrementingSpeed)
+            DetermineSpeedRampUpAndDown();
+            
+            // Jump when space is pressed
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                float s = Time.fixedTime - decelerationStartTime;
-                speedDecrement = 1 - SpeedFunction(s, accelerationTime / 2);
-
-                if (speedDecrement <= 0)
-                    decrementingSpeed = false;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-            {
-                jumpStartTime = Time.fixedTime;
+                playerRigidbody.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                playerAnimator.SetBool("jumping", true);
                 jumping = true;
-
-                playerRigidbody.velocity = Vector2.up * jumpSpeed;
             }
         }
+        else
+            playerAnimator.SetBool("grounded", false);
 
         if (Input.GetKey(KeyCode.A))
         {
+            // Walk left when on the ground
             if (IsGrounded())
-                playerRigidbody.velocity = new Vector2(-speed * speedIncrement * speedDecrement, playerRigidbody.velocity.y);
-            else
             {
-                playerRigidbody.velocity += new Vector2(-speed * midAirControl * Time.deltaTime, 0);
-                playerRigidbody.velocity = new Vector2(Mathf.Clamp(playerRigidbody.velocity.x, -speed, speed), playerRigidbody.velocity.y);
+                //playerRigidbody.AddForce(new Vector2(-speed /** speedIncrement * speedDecrement*/, playerRigidbody.velocity.y) - playerRigidbody.velocity, ForceMode2D.Impulse);
+                playerRigidbody.velocity = new Vector2(-speed * speedIncrement * speedDecrement, playerRigidbody.velocity.y);
+                playerAnimator.SetBool("running", true);
             }
+            else
+                playerRigidbody.velocity += new Vector2(-speed * midAirControl * Time.deltaTime, 0);
         }
         else if (Input.GetKey(KeyCode.D))
         {
+            // Walk right when on the ground
             if (IsGrounded())
-                playerRigidbody.velocity = new Vector2(speed * speedIncrement * speedDecrement, playerRigidbody.velocity.y);
-            else
             {
-                playerRigidbody.velocity += new Vector2(speed * midAirControl * Time.deltaTime, 0);
-                playerRigidbody.velocity = new Vector2(Mathf.Clamp(playerRigidbody.velocity.x, -speed, speed), playerRigidbody.velocity.y);
+                //playerRigidbody.AddForce(new Vector2(speed /** speedIncrement * speedDecrement*/, playerRigidbody.velocity.y) - playerRigidbody.velocity, ForceMode2D.Impulse);
+                playerRigidbody.velocity = new Vector2(speed * speedIncrement * speedDecrement, playerRigidbody.velocity.y);
+                playerAnimator.SetBool("running", true);
             }
+            else
+                playerRigidbody.velocity += new Vector2(speed * midAirControl * Time.deltaTime, 0);
         }
         else
         {
             if (IsGrounded() && !decrementingSpeed)
-                playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
-        }
-
-        if (jumping)
-        {
-            if (IsGrounded() && Time.fixedTime - jumpStartTime > 0.2f)
             {
-                jumping = false;
-                return;
+                // Stop when on the ground and nothing is pressed
+                //playerRigidbody.AddForce(new Vector2(-playerRigidbody.velocity.x * playerRigidbody.mass, 0), ForceMode2D.Impulse);
+                playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
+                playerAnimator.SetBool("running", false);
             }
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (IsGrounded())
         {
-            movement *= 2;
+            // Flip sprite/animation in the x direction depending on movement direction
+            if (playerRigidbody.velocity.x > 0)
+            {
+                playerSpriteRenderer.flipX = true;
+            }
+            else if (playerRigidbody.velocity.x < 0)
+            {
+                playerSpriteRenderer.flipX = false;
+            }
         }
     }
 
@@ -135,8 +122,35 @@ public class Player : MovingObject
 
     private bool IsGrounded()
     {
+        // Ground check using boxcast below player collider
         RaycastHit2D hit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, ~LayerMask.NameToLayer("Ground and Platforms"));
         return hit.collider != null;
+    }
+
+    private void DetermineSpeedRampUpAndDown()
+    {
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        {
+            accelerationStartTime = Time.fixedTime;
+            speedIncrement = 0;
+        }
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            decrementingSpeed = true;
+            decelerationStartTime = Time.fixedTime;
+        }
+
+        float t = Time.fixedTime - accelerationStartTime;
+        speedIncrement = SpeedFunction(t, accelerationTime);
+        speedDecrement = 1;
+        if (decrementingSpeed)
+        {
+            float s = Time.fixedTime - decelerationStartTime;
+            speedDecrement = 1 - SpeedFunction(s, accelerationTime / 2);
+
+            if (speedDecrement <= 0)
+                decrementingSpeed = false;
+        }
     }
 
     private float SpeedFunction(float t, float accelerationTime)
