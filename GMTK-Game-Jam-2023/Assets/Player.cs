@@ -7,9 +7,8 @@ using Unity.VisualScripting;
 public class Player : MovingObject
 {
     public int health;
-    public float jumpSpeed;
-    public MovementPattern jumpPattern;
-    public AnimationCurve jumpCurve;
+    public float jumpSpeed = 3f;
+    public float midAirControl = 1f;
 
     public Stats stats;
 
@@ -22,15 +21,12 @@ public class Player : MovingObject
     private bool grounded = true;
 
     private float speedIncrement;
-    private float jumpIncrement;
-
     private float speedDecrement;
 
     private float accelerationStartTime;
-    private float accelerationStopTime;
+    private float decelerationStartTime;
 
     private float jumpStartTime;
-    private float jumpBaseY;
 
     private bool decrementingSpeed = false;
 
@@ -41,7 +37,7 @@ public class Player : MovingObject
         playerCollider = GetComponent<Collider2D>();
 
         movement = Vector2.zero; // (0, 0)
-        stats = new Stats(speed, walkPattern, jumpPattern, health);
+        stats = new Stats(speed, /*walkPattern, jumpPattern,*/ health);
     }
 
     // Update is called once per frame
@@ -57,96 +53,80 @@ public class Player : MovingObject
             if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
             {
                 decrementingSpeed = true;
-                accelerationStopTime = Time.fixedTime;
+                decelerationStartTime = Time.fixedTime;
             }
 
-            if (Input.GetKey(KeyCode.A))
-                movement = Vector2.left; // (-1, 0)
-            else if (Input.GetKey(KeyCode.D))
-                movement = Vector2.right; // (0, 1)
+            float t = Time.fixedTime - accelerationStartTime;
+            speedIncrement = SpeedFunction(t, accelerationTime);
+            speedDecrement = 1;
+            if (decrementingSpeed)
+            {
+                float s = Time.fixedTime - decelerationStartTime;
+                speedDecrement = 1 - SpeedFunction(s, accelerationTime / 2);
+
+                if (speedDecrement <= 0)
+                    decrementingSpeed = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+            {
+                jumpStartTime = Time.fixedTime;
+                jumping = true;
+
+                playerRigidbody.velocity = Vector2.up * jumpSpeed;
+            }
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            if (IsGrounded())
+                playerRigidbody.velocity = new Vector2(-speed * speedIncrement * speedDecrement, playerRigidbody.velocity.y);
             else
             {
-                if (!decrementingSpeed)
-                    movement = Vector2.zero; // (0, 0)
+                playerRigidbody.velocity += new Vector2(-speed * midAirControl * Time.deltaTime, 0);
+                playerRigidbody.velocity = new Vector2(Mathf.Clamp(playerRigidbody.velocity.x, -speed, speed), playerRigidbody.velocity.y);
             }
-
-            if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            if (IsGrounded())
+                playerRigidbody.velocity = new Vector2(speed * speedIncrement * speedDecrement, playerRigidbody.velocity.y);
+            else
             {
-                jumping = true;
-                jumpStartTime = Time.fixedTime;
-                jumpBaseY = transform.position.y;
+                playerRigidbody.velocity += new Vector2(speed * midAirControl * Time.deltaTime, 0);
+                playerRigidbody.velocity = new Vector2(Mathf.Clamp(playerRigidbody.velocity.x, -speed, speed), playerRigidbody.velocity.y);
             }
+        }
+        else
+        {
+            if (IsGrounded() && !decrementingSpeed)
+                playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
         }
 
         if (jumping)
         {
-            playerRigidbody.gravityScale = 0;
-
-            if (Input.GetKey(KeyCode.A))
+            if (IsGrounded() && Time.fixedTime - jumpStartTime > 0.2f)
             {
-                movement += Vector2.left * Time.fixedDeltaTime;
-            } 
-            else if (Input.GetKey(KeyCode.D))
-            {
-                movement += Vector2.right * Time.fixedDeltaTime;
+                jumping = false;
+                return;
             }
         }
-        else
-            playerRigidbody.gravityScale = 1;
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
             movement *= 2;
         }
-
-        // Ground check
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position - Vector2.up / 4, -Vector2.up, 0.35f, layerMask: ~LayerMask.NameToLayer("Ground and Platforms"));
-        Debug.DrawRay((Vector2)transform.position - Vector2.up / 4, -Vector2.up * 0.35f,  hit.collider != null ? Color.green : Color.red);
-        if (hit.collider != null)
-        {
-            if (hit.transform.CompareTag("Ground") || hit.transform.CompareTag("Platform"))
-            {
-                grounded = true;
-
-                if (jumping && Time.fixedTime - jumpStartTime > 0.2f)
-                    jumping = false;
-            }
-            else
-            {
-                grounded = false;
-            }
-        }
     }
 
     private void FixedUpdate()
     {
-        float t = Time.fixedTime - accelerationStartTime;
-        speedDecrement = 1;
-        speedIncrement = SpeedFunction(t, accelerationTime);
-        if (decrementingSpeed)
-        {
-            float s = Time.fixedTime - accelerationStopTime;
-            speedDecrement = 1 - SpeedFunction(s, accelerationTime / 2);
 
-            if (speedDecrement <= 0)
-                decrementingSpeed = false;
-        }
+    }
 
-        if (jumping)
-        {
-            jumpIncrement = jumpCurve.Evaluate(Time.fixedTime - jumpStartTime);
-
-            if (jumpIncrement <= 0 && Time.fixedTime - jumpStartTime > 0.2f)
-            {
-                jumping = false;
-                playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 2 * (Time.fixedTime - jumpStartTime));
-            }
-
-            transform.Translate(new Vector2(0, (jumpCurve.Evaluate(Time.fixedTime - jumpStartTime) - jumpCurve.Evaluate(Time.fixedTime - jumpStartTime - Time.fixedDeltaTime)) / Time.fixedDeltaTime) * Time.fixedDeltaTime);
-            //actualMovement += Vector2.up * jumpSpeed * jumpIncrement * Time.fixedDeltaTime;
-        }
-
-        transform.Translate(movement * speed * speedDecrement * speedIncrement * Time.fixedDeltaTime);
+    private bool IsGrounded()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, ~LayerMask.NameToLayer("Ground and Platforms"));
+        return hit.collider != null;
     }
 
     private float SpeedFunction(float t, float accelerationTime)
@@ -160,15 +140,15 @@ public class Player : MovingObject
     public class Stats
     {
         private int speed;
-        private MovementPattern walkPattern;
-        private MovementPattern jumpPattern;
+        /*private MovementPattern walkPattern;
+        private MovementPattern jumpPattern;*/
         private int health;
 
-        public Stats(int speed, MovementPattern walkPattern, MovementPattern jumpPattern, int health)
+        public Stats(int speed, /*MovementPattern walkPattern, MovementPattern jumpPattern,*/ int health)
         {
             this.speed = speed;
-            this.walkPattern = walkPattern;
-            this.jumpPattern = jumpPattern;
+            /*this.walkPattern = walkPattern;
+            this.jumpPattern = jumpPattern;*/
             this.health = health;
         }
 
@@ -194,13 +174,13 @@ public class Player : MovingObject
                 health = maxHealth;
         }
 
-        public void ChangeWalkPattern(MovementPattern wp)
+        /*public void ChangeWalkPattern(MovementPattern wp)
         {
             walkPattern = wp;
         }
         public void ChangeJumpPattern(MovementPattern jp)
         {
             jumpPattern = jp;
-        }
+        }*/
     }
 }
