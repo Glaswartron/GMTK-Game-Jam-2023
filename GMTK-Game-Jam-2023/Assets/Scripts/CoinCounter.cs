@@ -21,6 +21,7 @@ public class CoinCounter : MonoBehaviour
     public void CountCoinsUp()
     {
         coins++;
+        UIMaster.instance.SetCoinText(coins.ToString());
     }
 
 }

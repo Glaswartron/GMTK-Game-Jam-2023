@@ -30,6 +30,8 @@ public class Player : MovingObject
 
     private bool decrementingSpeed = false;
 
+    private bool blockMovement = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,13 @@ public class Player : MovingObject
     // Update is called once per frame
     void Update()
     {
+        if(blockMovement)
+        {
+            playerRigidbody.velocity = Vector2.zero;
+            playerAnimator.SetBool("running", false);
+            return;
+        }
+
         if (IsGrounded())
         {
             // Reset jumping stuff once grounded after jump (= jump ended)
@@ -173,15 +182,23 @@ public class Player : MovingObject
         {
             if (stats.ReduceHP()) //-> Spieler hat keine HP mehr
             {
-                //GameOver oder so
+                UIMaster.instance.LoseHeart(2);
+                blockMovement = true;
+                GameManager.instance.GameOver();
             }
             else
             {
                 //set invincibility
                 invictus = true;
                 StartCoroutine(InvinctusCountdown());
+                UIMaster.instance.LoseHeart(1);
             }
         }
+    }
+    public void GainHP()
+    {
+        stats.IncreaseHP(health);
+        UIMaster.instance.GainHeart();
     }
 
     private IEnumerator InvinctusCountdown()
