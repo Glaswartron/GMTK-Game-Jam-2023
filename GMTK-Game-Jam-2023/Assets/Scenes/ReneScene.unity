@@ -1159,7 +1159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666649328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.20527284, y: -0.6640873, z: -10}
+  m_LocalPosition: {x: -0.90000033, y: -0.6640873, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2865,7 +2865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1724798644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.20527284, y: -0.6640873, z: -10}
+  m_LocalPosition: {x: -0.90000033, y: -0.6640873, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30008,10 +30008,6 @@ PrefabInstance:
       value: Princess Beach
       objectReference: {fileID: 0}
     - target: {fileID: 4236260698414228036, guid: 62b436d8d85cf3447b5d18a6360d4820, type: 3}
-      propertyPath: health
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4236260698414228036, guid: 62b436d8d85cf3447b5d18a6360d4820, type: 3}
       propertyPath: inincibilityTime
       value: 3
       objectReference: {fileID: 0}
@@ -30021,7 +30017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8096544777019925532, guid: 62b436d8d85cf3447b5d18a6360d4820, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2052732
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8096544777019925532, guid: 62b436d8d85cf3447b5d18a6360d4820, type: 3}
       propertyPath: m_LocalPosition.y

@@ -106,10 +106,10 @@ MonoBehaviour:
   currentDirection: 0
   walkPattern: {fileID: 0}
   health: 2
-  jumpSpeed: 13
+  jumpSpeed: 14
   midAirControl: 0.72
   invincibilityTime: 1.5
-  enemyBoost: 10
+  enemyBoost: 12
 --- !u!50 &8559824576324329087
 Rigidbody2D:
   serializedVersion: 4

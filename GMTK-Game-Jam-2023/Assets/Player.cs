@@ -156,7 +156,7 @@ public class Player : MovingObject
 
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         // Ground check using boxcast below player collider
         RaycastHit2D hit = Physics2D.BoxCast(playerCollider.bounds.center, playerCollider.bounds.size, 0f, Vector2.down, .1f, 1 << LayerMask.NameToLayer("Ground and Platforms"));
