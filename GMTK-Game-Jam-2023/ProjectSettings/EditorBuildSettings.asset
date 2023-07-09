@@ -11,13 +11,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: a97c09add8c529643b7aaced0a2864c9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BeneSceneNew.unity
     guid: 42fd79a7d2645974f862d26e0b0cc717
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ReneScene.unity
     guid: c9fd43808a0096e499e5d2cf98a78d3a
   - enabled: 1
     path: Assets/Scenes/Level 2.unity
     guid: a2342461ff7f9ab4bb4a5e4267aa1dc0
+  - enabled: 1
+    path: Assets/Scenes/Level 1.unity
+    guid: 6a811925d36d18b498556c72c4ea3896
   m_configObjects: {}
