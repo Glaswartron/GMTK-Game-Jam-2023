@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8559824576324329087}
   - component: {fileID: 4245643662181464012}
   - component: {fileID: 1876416359368123034}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Princess Beach
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 7835995153145755176}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4580468134601524990
 SpriteRenderer:
@@ -105,10 +105,10 @@ MonoBehaviour:
   accelerationTime: 0.3
   currentDirection: 0
   walkPattern: {fileID: 0}
-  health: 0
+  health: 2
   jumpSpeed: 13
   midAirControl: 0.72
-  inincibilityTime: 0
+  invincibilityTime: 1.5
   enemyBoost: 10
 --- !u!50 &8559824576324329087
 Rigidbody2D:
@@ -213,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7835995153145755176}
   - component: {fileID: 8782743404881514276}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HeadBox
   m_TagString: BlockBreaker
   m_Icon: {fileID: 0}

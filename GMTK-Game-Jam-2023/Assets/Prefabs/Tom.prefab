@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8821523823583742865}
   - component: {fileID: 4234778590107937770}
   - component: {fileID: 6941602103779175229}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6764824179310921525}
   - component: {fileID: 5968786675843263151}
   - component: {fileID: 2936048722557394089}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 194800659294251538}
   - component: {fileID: 2967124649303314383}
   - component: {fileID: 3842776959970378873}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 6078806439938214678}
   - component: {fileID: 2346484617028723497}
   - component: {fileID: 4817600194654896424}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

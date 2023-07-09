@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6623748400128011337}
   - component: {fileID: 8040940132520607237}
   - component: {fileID: 802043169268768215}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 3877420739973138089}
   - component: {fileID: 7615877422981820154}
   - component: {fileID: 3446706874517341360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 2367319263811105203}
   - component: {fileID: 3923555313021879894}
   - component: {fileID: 1167751854165968488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlyingTom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,6 +372,7 @@ MonoBehaviour:
   walkPattern: {fileID: 0}
   HP: 2
   invincibilityTime: 0.2
+  doesDamage: 1
   jumpingPower: 7
   jumpAlways: 0
   jumpRate: 2
@@ -387,7 +388,7 @@ GameObject:
   - component: {fileID: 2430166637099852754}
   - component: {fileID: 5335972136856059919}
   - component: {fileID: 2488215887563901303}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

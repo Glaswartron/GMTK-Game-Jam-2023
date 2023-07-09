@@ -22,6 +22,7 @@ public class SpeedUpItem : Item
     public override void ApplyEffect(Player player)
     {
         player.SpeedUp(speedMultiplier, time);
+        player.GainHP();
     }
 
 }

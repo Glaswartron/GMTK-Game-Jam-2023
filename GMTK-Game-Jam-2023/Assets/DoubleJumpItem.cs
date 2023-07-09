@@ -21,5 +21,6 @@ public class DoubleJumpItem : Item
     public override void ApplyEffect(Player player)
     {
         player.EnableDoubleJump(time);
+        player.GainHP();
     }
 }

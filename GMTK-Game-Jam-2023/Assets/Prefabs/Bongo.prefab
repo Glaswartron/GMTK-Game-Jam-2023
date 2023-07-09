@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2936048722557394089}
   - component: {fileID: 5442305299053507646}
   - component: {fileID: 985086751453596803}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bongo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 6078806439938214678}
   - component: {fileID: 2346484617028723497}
   - component: {fileID: 4817600194654896424}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftNRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 5350100827731351118}
   - component: {fileID: 4668983794408451959}
   - component: {fileID: 2684966167106503815}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

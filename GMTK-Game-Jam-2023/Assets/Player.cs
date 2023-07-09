@@ -9,7 +9,7 @@ public class Player : MovingObject
     public int health;
     public float jumpSpeed = 3f;
     public float midAirControl = 1f;
-    public float inincibilityTime;
+    public float invincibilityTime;
     public float enemyBoost = 2f;
     private bool invictus;
 
@@ -24,6 +24,8 @@ public class Player : MovingObject
     private Collider2D playerCollider;
     private Animator playerAnimator;
     private SpriteRenderer playerSpriteRenderer;
+
+    private float invincibilityStartTime;
 
     private float speedIncrement;
     private float speedDecrement;
@@ -253,20 +255,44 @@ public class Player : MovingObject
             {
                 //set invincibility
                 invictus = true;
-                StartCoroutine(InvinctusCountdown());
+                invincibilityStartTime = Time.time;
+                StartCoroutine(InvictusCountdown());
+                StartCoroutine(BlinkCo());
                 UIMaster.instance.LoseHeart(1);
+
+                ResetSpeed();
+                DisableDoubleJump();
+
+                CancelInvoke("ResetSpeed");
+                CancelInvoke("DisableDoubleJump");
             }
         }
     }
+
+    private IEnumerator BlinkCo()
+    {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), true);
+        while (Time.time - invincibilityStartTime < invincibilityTime - 0.5f)
+        {
+            playerSpriteRenderer.color = new Color(255, 0, 0, 255);
+            yield return new WaitForSeconds(0.3f);
+            playerSpriteRenderer.color = new Color(255, 0, 0, 0);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemies"), false);
+        playerSpriteRenderer.color = new Color(255, 255, 255, 1);
+    }
+
     public void GainHP()
     {
         stats.IncreaseHP(health);
         UIMaster.instance.GainHeart();
     }
 
-    private IEnumerator InvinctusCountdown()
+    private IEnumerator InvictusCountdown()
     {
-        yield return new WaitForSeconds(inincibilityTime);
+        yield return new WaitForSeconds(invincibilityTime);
         invictus = false;
     }
 
