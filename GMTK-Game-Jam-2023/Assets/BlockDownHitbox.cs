@@ -8,7 +8,16 @@ public class BlockDownHitbox : MonoBehaviour
     {
         if(collision.tag == "BlockBreaker")
         {
-            GetComponentInParent<Block>().Break();
+            var block = GetComponentInParent<Block>();
+            if (block.destructable)
+            {
+                GetComponentInParent<Block>().Break();
+            }
+            else if(block.isItemBox)
+            {
+                block.HitItemBox();
+                //this.gameObject.SetActive(false);
+            }
         }
     }
 
