@@ -33,5 +33,12 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         GameOverScreen.SetActive(true);
+
+        if (SceneManager.GetActiveScene().name != "Level 1")
+            audioManager.StopMusic("OverworldLevels");
+        else
+            audioManager.StopMusic("CastleLevel");
+
+        audioManager.Play("DeathSound");
     }
 }

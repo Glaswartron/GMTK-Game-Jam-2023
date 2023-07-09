@@ -56,7 +56,7 @@ public class Player : MovingObject
     // Update is called once per frame
     void Update()
     {
-        if(Locked || blockMovement)
+        if (Locked || blockMovement)
         {
             playerRigidbody.velocity = Vector2.zero;
             playerAnimator.SetBool("running", false);
@@ -262,6 +262,7 @@ public class Player : MovingObject
                 StartCoroutine(InvictusCountdown());
                 StartCoroutine(BlinkCo());
                 UIMaster.instance.LoseHeart(1);
+                GameManager.instance.audioManager.Play("HitByEnemy");
 
                 ResetSpeed();
                 DisableDoubleJump();

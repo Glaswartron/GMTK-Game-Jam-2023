@@ -22,6 +22,8 @@ public abstract class Item : MonoBehaviour
             GetComponent<Animator>().Play("ItemDissolve");
 
             ApplyEffect(collision.GetComponent<Player>());
+
+            GameManager.instance.audioManager.Play("ItemOrVictory");
         }
     }
 
