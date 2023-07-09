@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOverScreen: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!114 &5259611216933252575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,11 +74,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Level1
+  - name: OverworldLevels
     clip: {fileID: 8300000, guid: 804980511255b70408d8f61de46175e5, type: 3}
-    volume: 0.35
+    volume: 0.2
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 1
+    source: {fileID: 0}
+  - name: CastleLevel
+    clip: {fileID: 8300000, guid: 8d0e104a9d3cbe940a8066c3e673f17d, type: 3}
+    volume: 0.2
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    source: {fileID: 0}
+  - name: ItemOrVictory
+    clip: {fileID: 8300000, guid: b7b7c8e35d9af5242855a8a5cb831ad0, type: 3}
+    volume: 0.2
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: HitByEnemy
+    clip: {fileID: 8300000, guid: e1b1723e55955f348b4d96f0cd2e430e, type: 3}
+    volume: 0.2
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: DeathSound
+    clip: {fileID: 8300000, guid: 613d81b0ac367914486bdec02fc43602, type: 3}
+    volume: 0.2
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
     source: {fileID: 0}
