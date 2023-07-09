@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using System.Threading;
 
 public class Player : MovingObject
 {
@@ -17,6 +18,8 @@ public class Player : MovingObject
 
     private bool doubleJumpEnabled;
     private bool secondJumpUsed;
+
+    public bool Locked { get; set; }
 
     public Stats stats;
 
@@ -53,7 +56,7 @@ public class Player : MovingObject
     // Update is called once per frame
     void Update()
     {
-        if(blockMovement)
+        if(Locked || blockMovement)
         {
             playerRigidbody.velocity = Vector2.zero;
             playerAnimator.SetBool("running", false);
