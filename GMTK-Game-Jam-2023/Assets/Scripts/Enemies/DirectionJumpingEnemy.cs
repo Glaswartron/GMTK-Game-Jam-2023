@@ -13,7 +13,7 @@ public class DirectionJumpingEnemy : Enemy
     private float jumpStartTime;
     private float lastJump;
 
-    private bool jumping = false;
+    protected bool jumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class DirectionJumpingEnemy : Enemy
     }
 
     // Update is called once per frame
-    protected void Update()
+    protected virtual void Update()
     {
         BaseEnemyUpdate(); //in Enemy
 

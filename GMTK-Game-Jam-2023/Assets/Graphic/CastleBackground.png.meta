@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 17c3c543cc8ee1544b1cc39ea1432f87
+guid: 06ecb121c57a1d148bad51fc42df29f9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MagmaJellyFish_0
+      name: CastleBackground_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 32
-        height: 32
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 99581c35017cba240b4d03446b6b8a54
-      internalID: 2045740251
+      spriteID: f6bcd470603eff44595ddf6c0c15cfd1
+      internalID: -273145948
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MagmaJellyFish_1
+      name: CastleBackground_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
+        x: 128
+        y: 128
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,104 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39021273159f36540be59894f51c1ee9
-      internalID: -412049383
+      spriteID: 7d6088e513b8f2c488fc96f85044c260
+      internalID: 902359127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MagmaJellyFish_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3485d7b3e0330b14b9edd39b7c576f97
-      internalID: -1504293967
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MagmaJellyFish_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cff34fb76df9d9b459b64985e76fb821
-      internalID: -789611547
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MagmaJellyFish_4
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d548b461af6563c4b9d05e820e14b3ee
-      internalID: -1341172180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MagmaJellyFish_5
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 549bba639c2dd574881afa5e3d30fa70
-      internalID: -1570162957
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MagmaJellyFish_6
+      name: CastleBackground_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,29 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb9be24d3b898ea45b83f3c86ac396fa
-      internalID: 586360434
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MagmaJellyFish_7
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ad99170c8156b84479670a8dfa6e7b82
-      internalID: 2116281662
+      spriteID: d9769709d2e3c6c4b8b769c6dda7e75c
+      internalID: -1627444002
       vertices: []
       indices: 
       edges: []
@@ -288,14 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MagmaJellyFish_0: 2045740251
-      MagmaJellyFish_1: -412049383
-      MagmaJellyFish_2: -1504293967
-      MagmaJellyFish_3: -789611547
-      MagmaJellyFish_4: -1341172180
-      MagmaJellyFish_5: -1570162957
-      MagmaJellyFish_6: 586360434
-      MagmaJellyFish_7: 2116281662
+      CastleBackground_0: -273145948
+      CastleBackground_1: 902359127
+      CastleBackground_2: -1627444002
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
