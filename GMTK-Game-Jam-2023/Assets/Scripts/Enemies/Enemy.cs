@@ -130,7 +130,7 @@ public class Enemy : MovingObject
 
     public bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, ~LayerMask.NameToLayer("Ground and Platforms"));
+        RaycastHit2D hit = Physics2D.BoxCast(enemyCollider.bounds.center, enemyCollider.bounds.size, 0f, Vector2.down, .1f, 1 << LayerMask.NameToLayer("Ground and Platforms"));
         return hit.collider != null;
     }
 
@@ -138,7 +138,7 @@ public class Enemy : MovingObject
     {
         if (!invictus)
         {
-            Debug.Log("Hi, TakeHit hier");
+            //Debug.Log("Hi, TakeHit hier");
             HP -= dmg;
             if (HP <= 0)
             {
