@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ReneScene.unity
     guid: c9fd43808a0096e499e5d2cf98a78d3a
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: a2342461ff7f9ab4bb4a5e4267aa1dc0
   m_configObjects: {}
