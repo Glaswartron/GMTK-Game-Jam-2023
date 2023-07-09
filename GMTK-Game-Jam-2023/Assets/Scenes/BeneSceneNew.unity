@@ -1564,6 +1564,98 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[0].name
+      value: OutsideLevels
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d0e104a9d3cbe940a8066c3e673f17d, type: 3}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[1].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[1].name
+      value: CastleLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b7b7c8e35d9af5242855a8a5cb831ad0, type: 3}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[2].loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[2].name
+      value: ItemOrVictory
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: e1b1723e55955f348b4d96f0cd2e430e, type: 3}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[3].loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[3].name
+      value: HitByEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 613d81b0ac367914486bdec02fc43602, type: 3}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[4].loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[4].name
+      value: DeathSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[1].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[2].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[3].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[4].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[1].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[2].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[3].volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259611216933252575, guid: 443d60110c096d94395ee3860091f496, type: 3}
+      propertyPath: sounds.Array.data[4].volume
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5823421940596004957, guid: 443d60110c096d94395ee3860091f496, type: 3}
       propertyPath: m_Name
       value: GameManager

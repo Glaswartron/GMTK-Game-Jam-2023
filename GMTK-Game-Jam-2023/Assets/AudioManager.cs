@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class Sound
@@ -52,8 +53,6 @@ public class AudioManager : MonoBehaviour
             s.source.clip = s.clip;
             s.source.loop = s.loop;
         }
-
-        StartMusic();
     }
 
     public void Play(string sound)
@@ -73,9 +72,9 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-    public void StartMusic()
+    public void StartMusic(string musicName)
     {
-        Sound s = Array.Find(sounds, item => item.name == "Level1");
+        Sound s = Array.Find(sounds, item => item.name == musicName);
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
@@ -87,9 +86,9 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-    public void StopMusic()
+    public void StopMusic(string musicName)
     {
-        Sound s = Array.Find(sounds, item => item.name == "Level1");
+        Sound s = Array.Find(sounds, item => item.name == musicName);
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");

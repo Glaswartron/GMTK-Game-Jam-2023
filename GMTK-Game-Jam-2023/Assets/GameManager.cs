@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     public GameObject GameOverScreen;
+
+    [HideInInspector] public AudioManager audioManager;
 
     private void Awake()
     {
@@ -19,7 +22,12 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
 
-        GetComponent<AudioManager>().StartMusic();
+        audioManager = GetComponent<AudioManager>();
+
+        if (SceneManager.GetActiveScene().name != "Level 1")
+            audioManager.StartMusic("OverworldLevels");
+        else
+            audioManager.StartMusic("CastleLevel");
     }
 
     public void GameOver()
