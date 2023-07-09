@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        GetComponent<AudioManager>().StartMusic();
     }
 
     public void GameOver()

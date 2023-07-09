@@ -1,65 +1,102 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[System.Serializable]
+public class Sound
+{
+
+    public string name;
+
+    public AudioClip clip;
+
+    [Range(0f, 2f)]
+    public float volume = .75f;
+    [Range(0f, 1f)]
+    public float volumeVariance = .1f;
+
+    [Range(.1f, 3f)]
+    public float pitch = 1f;
+    [Range(0f, 1f)]
+    public float pitchVariance = .1f;
+
+    public bool loop = false;
+
+    [HideInInspector]
+    public AudioSource source;
+
+}
+
 public class AudioManager : MonoBehaviour
 {
-    public struct 
+    public static AudioManager instance;
 
     public Sound[] sounds;
 
-    public static AudioManager instance;
-    //AudioManager
-
     void Awake()
     {
-
-        if (instance == null)
-            instance = this;
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
+        //if (instance != null)
+        //{
+        //Destroy(gameObject);
+        //}
+        //else
+        //{
+        instance = this;
+        //DontDestroyOnLoad(gameObject);
+        //}
 
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
             s.source.loop = s.loop;
         }
+
+        StartMusic();
     }
 
-    void Start()
+    public void Play(string sound)
     {
-        Play("Theme");
-
-    }
-
-    public void Play(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, item => item.name == sound);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found");
+            Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
+
+        s.source.volume = s.volume
+            * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+        s.source.pitch = s.pitch
+            * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
         s.source.Play();
     }
 
-    //this addition to the code was made by me, the rest was from Brackeys tutorial
-    public void Stop(string name)
+    public void StartMusic()
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Sound s = Array.Find(sounds, item => item.name == "Level1");
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        s.source.volume = s.volume;
+
+        s.source.Play();
+    }
+
+    public void StopMusic()
+    {
+        Sound s = Array.Find(sounds, item => item.name == "Level1");
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
 
         s.source.Stop();
     }
+
 }
