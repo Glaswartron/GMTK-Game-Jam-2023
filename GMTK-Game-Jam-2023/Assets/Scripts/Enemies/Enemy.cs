@@ -22,6 +22,7 @@ public class Enemy : MovingObject
     protected bool invictus;
 
     public bool doesDamage = true;
+    public bool takesDamage = true;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -138,23 +139,26 @@ public class Enemy : MovingObject
     {
         if (!invictus)
         {
-            //Debug.Log("Hi, TakeHit hier");
-            HP -= dmg;
-            if (HP <= 0)
+            if (takesDamage)
             {
-                movement = Vector2.zero;
-                GetComponent<Rigidbody2D>().gravityScale = 0;
+                //Debug.Log("Hi, TakeHit hier");
+                HP -= dmg;
+                if (HP <= 0)
+                {
+                    movement = Vector2.zero;
+                    GetComponent<Rigidbody2D>().gravityScale = 0;
 
-                doesDamage = false;
-                GetComponent<Animator>().Play("Die"); //Dort muss das GO ausgemacht werden
-                //PlayDeathAnimation;
-                //Wait for Animation Done
-                //gameObject.SetActive(false);
-            }
-            else
-            {
-                StartCoroutine(InvinctusCountdown(invincibilityTime));
-                DamageBehaviour();
+                    doesDamage = false;
+                    GetComponent<Animator>().Play("Die"); //Dort muss das GO ausgemacht werden
+                                                          //PlayDeathAnimation;
+                                                          //Wait for Animation Done
+                                                          //gameObject.SetActive(false);
+                }
+                else
+                {
+                    StartCoroutine(InvinctusCountdown(invincibilityTime));
+                    DamageBehaviour();
+                }
             }
         }
     }

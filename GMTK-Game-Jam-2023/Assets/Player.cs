@@ -171,6 +171,11 @@ public class Player : MovingObject
         playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, enemyBoost);
     }
 
+    public void BoostUp(float boost)
+    {
+        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, boost);
+    }
+
     public void SpeedUp(float multiplier, float time)
     {
         speed = speed * multiplier;
