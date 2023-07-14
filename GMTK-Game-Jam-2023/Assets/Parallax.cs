@@ -9,7 +9,9 @@ public class Parallax : MonoBehaviour
 
     [SerializeField]
     private Vector2 parallaxDelay;
-    private float textureUnitSizeX; 
+    private float textureUnitSizeX;
+
+    public bool moveConstantly;
 
     private void Start()
     {
@@ -25,9 +27,16 @@ public class Parallax : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 deltaMovement = cameraTransform.position - lastCamPosition;
-        transform.position += new Vector3(deltaMovement.x * parallaxDelay.x, deltaMovement.y * parallaxDelay.y);
-        lastCamPosition = cameraTransform.position;
+        if (!moveConstantly)
+        {
+            Vector3 deltaMovement = cameraTransform.position - lastCamPosition;
+            transform.position += new Vector3(deltaMovement.x * parallaxDelay.x, deltaMovement.y * parallaxDelay.y);
+            lastCamPosition = cameraTransform.position;
+        }
+        else
+        {
+            transform.position += (Vector3.left * Time.deltaTime * parallaxDelay.x);
+        }
         /*
         if(Mathf.Abs(cameraTransform.position.x - transform.position.x) >= textureUnitSizeX)
         {
