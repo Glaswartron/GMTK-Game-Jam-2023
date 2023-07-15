@@ -29,10 +29,13 @@ public class Block : MonoBehaviour
 
     public void SpawnItem()
     {
-        var i = Instantiate<GameObject>(item, itemSpawnPoint.transform.position, itemSpawnPoint.transform.rotation);
-        if(itemBoxSpawningItemBox)
+        if (item != null)
         {
-            i.GetComponent<Block>().isItemBox = true;
+            var i = Instantiate<GameObject>(item, itemSpawnPoint.transform.position, itemSpawnPoint.transform.rotation);
+            if (itemBoxSpawningItemBox)
+            {
+                i.GetComponent<Block>().isItemBox = true;
+            }
         }
     }
 }
