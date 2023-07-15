@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    private FlyingPlatform flyingPlatform;
+    private void Start()
+    {
+        flyingPlatform = GetComponentInParent<FlyingPlatform>();
+    }
     private void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
         if (collision.transform.CompareTag("Player"))
@@ -11,6 +16,12 @@ public class MovingPlatform : MonoBehaviour
             if (collision.transform.GetComponent<Player>().transform.position.y > transform.position.y)
             {
                 collision.transform.GetComponent<Player>().transform.SetParent(transform);
+
+
+                if (flyingPlatform.moveByTrigger)
+                {
+                    flyingPlatform.Trigger();
+                }
             }
         }
     }
