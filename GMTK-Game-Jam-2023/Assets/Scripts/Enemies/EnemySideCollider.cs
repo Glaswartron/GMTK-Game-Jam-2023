@@ -11,7 +11,8 @@ public class EnemySideCollider : MonoBehaviour
         if(collision.GetComponent<Player>() == null)
         {
             if(collision.GetComponent<Coin>() == null)
-            { 
+            {
+                //Debug.Log("ChangeSides " + collision.name);
                 GetComponentInParent<Enemy>().ChangeDirection();
             }
         }

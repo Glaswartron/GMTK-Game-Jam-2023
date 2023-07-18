@@ -23,6 +23,8 @@ public class Enemy : MovingObject
 
     public bool doesDamage = true;
     public bool takesDamage = true;
+
+    private bool directionCooldownBool = false;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -103,17 +105,29 @@ public class Enemy : MovingObject
 
     public virtual void ChangeDirection()
     {
-        decrementingSpeed = true;
-        accelerationStopTime = Time.fixedTime;
+        if (!directionCooldownBool)
+        {
+            decrementingSpeed = true;
+            accelerationStopTime = Time.fixedTime;
 
-        if (currentDirection == Direction.Left)
-        {
-            currentDirection = Direction.Right;
+            if (currentDirection == Direction.Left)
+            {
+                currentDirection = Direction.Right;
+            }
+            else if (currentDirection == Direction.Right)
+            {
+                currentDirection = Direction.Left;
+            }
+            StartCoroutine(DirectionCooldown());
         }
-        else if(currentDirection == Direction.Right)
-        {
-            currentDirection = Direction.Left;
-        }
+        
+    }
+
+    private IEnumerator DirectionCooldown()
+    {
+        directionCooldownBool = true;
+        yield return new WaitForSeconds(.3f);
+        directionCooldownBool = false;
     }
 
     public void StopMovement()
