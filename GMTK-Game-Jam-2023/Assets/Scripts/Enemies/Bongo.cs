@@ -23,15 +23,18 @@ public class Bongo : Enemy
 
     public override void ChangeDirection()
     {
-        base.ChangeDirection();
-        GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
-        foreach(Transform child in transform)
+        if (!directionCooldownBool)
         {
-            float y = (child.rotation.y == 0) ? 180 : 0;
-            double z = (child.GetComponent<CapsuleCollider2D>() != null)? -57.722 : child.rotation.z;
+            base.ChangeDirection();
+            GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+            foreach (Transform child in transform)
+            {
+                float y = (child.rotation.y == 0) ? 180 : 0;
+                double z = (child.GetComponent<CapsuleCollider2D>() != null) ? -57.722 : child.rotation.z;
 
-            child.eulerAngles = new Vector3(child.rotation.x, y, (float)z);
+                child.eulerAngles = new Vector3(child.rotation.x, y, (float)z);
 
+            }
         }
     }
 

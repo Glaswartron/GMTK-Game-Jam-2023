@@ -15,6 +15,10 @@ public class FlyingPlatform : MonoBehaviour
 
     [Tooltip("True: Die Plattform bewegt sich erst dann, wenn der Spieler sie berührt hat")]
     public bool moveByTrigger;
+    [Tooltip("So lange wartet die Plattform nach dem Trigger mit der Bewegung")]
+    public float triggerDelay;
+
+    public bool dieAtEnd = false;
 
     private Transform target;
     private bool waiting = false;
@@ -52,6 +56,10 @@ public class FlyingPlatform : MonoBehaviour
             {
                 target = target == end ? start : end;
                 semaphora = false;
+                if(dieAtEnd)
+                {
+                    Destroy(this.gameObject);
+                }
             }
         }
     }
@@ -64,6 +72,12 @@ public class FlyingPlatform : MonoBehaviour
 
     public void Trigger()
     {
+        StartCoroutine(TriggerDelay());
+    }
+
+    private IEnumerator TriggerDelay()
+    {
+        yield return new WaitForSeconds(triggerDelay);
         triggered = true;
     }
 }

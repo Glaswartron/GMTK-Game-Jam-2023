@@ -24,7 +24,7 @@ public class Enemy : MovingObject
     public bool doesDamage = true;
     public bool takesDamage = true;
 
-    private bool directionCooldownBool = false;
+    protected bool directionCooldownBool = false;
     // Start is called before the first frame update
     protected void Start()
     {
@@ -177,7 +177,7 @@ public class Enemy : MovingObject
         }
     }
 
-    private IEnumerator InvinctusCountdown(float time)
+    protected IEnumerator InvinctusCountdown(float time)
     {
         yield return new WaitForSeconds(time);
         invictus = false;
