@@ -11,11 +11,7 @@ public class BlockDownHitbox : MonoBehaviour
 
             if (collision.GetComponentInParent<Player>() != null)
             {
-                Debug.Log("Players y: " + Mathf.Abs(collision.transform.position.y));
-                Debug.Log("Eigenes global y: " + Mathf.Abs(this.transform.parent.position.y));
-                Debug.Log("Eigenes lokales y: " + Mathf.Abs(this.transform.localPosition.y));
-
-                if ((collision.transform.position.y) > (this.transform.parent.position.y))
+                if (transform.GetComponentInParent<Block>().IsBlocked())
                 {
                     Debug.Log("ALARM!!!");
                     return;
@@ -31,6 +27,17 @@ public class BlockDownHitbox : MonoBehaviour
             {
                 block.HitItemBox();
                 //this.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.GetComponentInParent<Player>() != null)
+        {
+            if (transform.GetComponentInParent<Block>().IsBlocked())
+            {
+                transform.GetComponentInParent<Block>().UnBlockBlock();
             }
         }
     }

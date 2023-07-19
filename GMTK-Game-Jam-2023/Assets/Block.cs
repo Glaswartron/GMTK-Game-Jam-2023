@@ -10,6 +10,8 @@ public class Block : MonoBehaviour
     public GameObject item;
     public GameObject itemSpawnPoint;
 
+    private bool blocked = false;
+
     public void Break()
     {
         GetComponent<Animator>().Play("Break"); //Am Ende der Animation muss das GO deaktiviert werden
@@ -37,5 +39,20 @@ public class Block : MonoBehaviour
                 i.GetComponent<Block>().isItemBox = true;
             }
         }
+    }
+
+    public bool IsBlocked()
+    {
+        return blocked;
+    }
+
+    public void BlockBlock()
+    {
+        blocked = true;
+    }
+
+    public void UnBlockBlock()
+    {
+        blocked = false;
     }
 }
